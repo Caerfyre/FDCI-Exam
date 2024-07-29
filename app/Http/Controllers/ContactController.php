@@ -21,7 +21,7 @@ class ContactController extends Controller
     {
         try {
             $user = Auth::user();
-            $contacts = Contact::where('userID', $user->id)->paginate(5);
+            $contacts = Contact::where('userID', $user->id)->paginate(3);
             return view('contacts', ['contacts' => $contacts]);
         } catch (\Exception $e) {
             return redirect('contacts')->with('error', 'Error fetching contacts.');
@@ -39,10 +39,10 @@ class ContactController extends Controller
     {
         $user = Auth::user();
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:100',
-            'company' => 'required|string|max:255',
-            'phone' => 'required|string|max:20',
-            'email' => 'required|string|email|max:255',
+            'name' => 'required|string|max:100'
+            // 'company' => 'string|max:255',
+            // 'phone' => 'string|max:20',
+            // 'email' => 'string|email|max:255',
         ]);
 
         if ($validator->fails()) {
